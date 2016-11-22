@@ -14,7 +14,8 @@
     "compile:js": "webpack --verbose --colors --display-error-details --config ./www/src/webpack.js ./www/src/main.js ./www/main.js",
     "compile:worker": "webpack --verbose --colors --display-error-details --config ./www/src/webpack.js ./www/src/sphere-worker.js ./www/sphereworker.js",
     "deploy:www": "git subtree push --prefix www origin gh-pages",
-    "generate": "babel-node ./lib/scad/generate.js"
+    "generate": "babel-node ./lib/scad/generate.js",
+    "make": "babel-node ./lib/scad/make.js"
   },
   "repository": {
     "type": "git",
