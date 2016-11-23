@@ -84,6 +84,16 @@ const panelColors = [
   [240,226,164].map(cToF),
   [197,206,174].map(cToF),
   [188,162,151].map(cToF),
+
+  [117,125,117].map(cToF),
+  [72,146,155].map(cToF),
+  [29,105,124].map(cToF),
+  [134,171,165].map(cToF),
+
+  [31,71,136].map(cToF),
+  [90,79,116].map(cToF),
+  [135,95,154].map(cToF),
+  [143,65,85].map(cToF),
 ];
 
 export const tenPanelsAndPoles = function(){
