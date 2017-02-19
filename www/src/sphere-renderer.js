@@ -22,8 +22,9 @@
 
 'use strict';
 
-import THREE from 'three';
-import CANNON from 'cannon';
+var THREE = require('three');
+
+require('imports-loader?THREE=three!three/examples/js/controls/OrbitControls');
 
 import { throttle, each, extend, pick } from 'lodash';
 
@@ -72,28 +73,9 @@ class Renderer {
 
     renderSize();
 
-    // Physics
+    // Add controls
 
-    this._world = new CANNON.World();
-
-    // The volume and mass of a human head
-    this._body = new CANNON.Body({
-      mass:     5,
-      position: new CANNON.Vec3(0, 0, 0),
-      shape:    new CANNON.Sphere(0.0875)
-    });
-
-    this._body.angularDamping = .88;
-
-    this._world.addBody(this._body);
-
-    this._world.addEventListener('preStep', ()=> {
-      var t = this._lastTime;
-
-      this._body.angularVelocity.y = Math.sin(τ * ((t + OSC_DUR / 2.5) % (OSC_DUR*2)) / (OSC_DUR*2)) * 2 * DEFAULT_ω;
-      this._body.angularVelocity.x = Math.sin(τ * (t % OSC_DUR) / OSC_DUR) * DEFAULT_ω;
-      this._body.angularVelocity.z = Math.sin(τ * ((t + OSC_DUR / 2) % OSC_DUR) / OSC_DUR) * DEFAULT_ω;
-    });
+    this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
 
     // DOM bindings and render loop
 
@@ -114,12 +96,7 @@ class Renderer {
   }
 
   _render() {
-    var now = Date.now(),
-        dt  = (now - this._lastTime) / 1e3;
-
-    this.sphere.rotation.setFromQuaternion(this._body.quaternion);
-
-    this._world.step(TIME_STEP, dt, MAX_SUB_STEPS);
+    var now = Date.now();
 
     this.renderer.render(this.scene, this.camera);
 

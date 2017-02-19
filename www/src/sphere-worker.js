@@ -60,7 +60,11 @@ onmessage = function(e){
 
   }else if( opts.coloration === 'LEDStrings' ){
 
-    partition(s, opts.leds);
+    s = partition({
+      n: opts.leds,
+      d: opts.divisions,
+      grouping: false
+    });
 
     s.toCG({colorFn: colorFn, type: (opts.geometryType || 'fields')}, function (err, vfc) {
       postMessage(vfc);
